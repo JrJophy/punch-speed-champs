@@ -79,7 +79,6 @@ export function useBoxingChannel(roomCode: string | null, name: string, handlers
       })
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState<{ name: string; joinedAt: number }>();
-        const ids = new Set(Object.keys(state));
         for (const [id, metas] of Object.entries(state)) {
           known.set(id, {
             id,
@@ -87,11 +86,10 @@ export function useBoxingChannel(roomCode: string | null, name: string, handlers
             joinedAt: metas[0]?.joinedAt ?? 0,
           });
         }
-        // drop anyone presence says has left (keep self)
-        for (const id of [...known.keys()]) {
-          if (id !== playerId && !ids.has(id)) known.delete(id);
-        }
         emit();
+      })
+      .on("presence", { event: "leave" }, ({ key }) => {
+        if (key !== playerId && known.delete(key)) emit();
       })
       .subscribe((status) => {
         h.current.onStatus(status);
