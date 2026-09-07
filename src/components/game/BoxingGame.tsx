@@ -113,6 +113,8 @@ export function BoxingGame() {
       setCountdown(Math.max(0, left));
       if (left <= 0) {
         fightStart.current = Date.now();
+        setMistake(false);
+        setTyped("");
         setPhase("fight");
         inputRef.current?.focus();
       }

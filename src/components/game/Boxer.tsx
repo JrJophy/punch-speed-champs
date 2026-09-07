@@ -126,13 +126,24 @@ export function Boxer({ slot, colors, down = false, scale = 1 }: Props) {
         <mesh position={[0, 1.02, 0]} castShadow material={mats.skin}>
           <capsuleGeometry args={[0.25, 0.34, 6, 14]} />
         </mesh>
+        <mesh position={[-0.27, 1.16, 0]} castShadow material={mats.skin}>
+          <sphereGeometry args={[0.12, 14, 12]} />
+        </mesh>
+        <mesh position={[0.27, 1.16, 0]} castShadow material={mats.skin}>
+          <sphereGeometry args={[0.12, 14, 12]} />
+        </mesh>
         {/* head */}
-        <group ref={head} position={[0, 1.44, 0.02]}>
+        <group ref={head} position={[0, 1.5, 0.02]}>
           <mesh castShadow material={mats.skin}>
             <sphereGeometry args={[0.17, 20, 16]} />
           </mesh>
-          <mesh position={[0, 0.1, 0]} material={mats.trunks}>
-            <torusGeometry args={[0.15, 0.035, 8, 20]} />
+          {/* headgear band */}
+          <mesh position={[0, 0.06, 0]} rotation-x={Math.PI / 2} material={mats.trunks}>
+            <torusGeometry args={[0.145, 0.035, 10, 24]} />
+          </mesh>
+          {/* nose guard */}
+          <mesh position={[0, -0.02, 0.15]} material={mats.skin}>
+            <sphereGeometry args={[0.05, 10, 8]} />
           </mesh>
         </group>
         {/* gloves */}
