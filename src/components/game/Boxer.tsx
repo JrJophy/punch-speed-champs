@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { clone as cloneSkeleton } from "three/addons/utils/SkeletonUtils.js";
@@ -43,12 +43,6 @@ export function Boxer({ slot, colors, down = false, scale = 1 }: Props) {
   const dir = slot === "red" ? 1 : -1;
   const homeX = slot === "red" ? -1.15 : 1.15;
   const cornerColor = slot === "red" ? colors.glove : colors.trunks;
-
-  useEffect(() => () => {
-    boxer.traverse((child) => {
-      if (child instanceof THREE.Mesh) child.geometry.dispose();
-    });
-  }, [boxer]);
 
   useFrame(({ clock }, rawDelta) => {
     const delta = Math.min(rawDelta, 0.05);
